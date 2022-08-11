@@ -1,6 +1,7 @@
 import csv
+from pickletools import read_long1
 import pandas as pd 
-
+import re
 class ParserEvc():
 
     def __init__(self,path):
@@ -14,6 +15,9 @@ class ParserEvc():
     def path(self,path):
         self.__path = path
 
+    def regex_find(self,input):
+        pattern = re.compile(r"\d+\s+\d{0,4}\s+\([IB]\)\s+\d+\s+\d+\.\d+\s+\d+\.\d+\s+\d+\.\d+\s+\d+\s+\d+")
+        return pattern.findall(input)
 
     def output_to_txt(self,output): 
         with open(f"TXTs/{self.__path}temp.txt", "w") as arquivo:
@@ -22,13 +26,11 @@ class ParserEvc():
     def get_parameters_from_txt(self):
         parameters_lines = []
         with open(f'TXTs/{self.__path}temp.txt') as temp:
-
-            lines = temp.readlines()
-            
-            for line in range(len(lines)):
-                if line > 21 and line < (len(lines)-13) and line%2 == 0 and lines[line].split()[0].isnumeric(): 
-                    original_tuple = lines[line].split()
-                    new_list = ([int(original_tuple[0])]+original_tuple[2:9])
+            text = temp.read()
+            re_list = self.regex_find(text)
+            for line in range(len(re_list)):
+                    original_tuple = re_list[line].split()
+                    new_list = ([int(original_tuple[0])]+[original_tuple[2][1]]+original_tuple[3:9])
                     parameters_lines.append((new_list))
 
         return sorted(parameters_lines)
