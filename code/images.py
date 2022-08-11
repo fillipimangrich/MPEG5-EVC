@@ -28,7 +28,7 @@ def add_border(image,border_thickness=5,color=[255,255,255]):
 def add_border_and_text(image,text):
     black_border = add_border(image,3,[0,0,0])
     white_border = add_border(black_border,50)
-    texted_image =cv2.putText(img=np.copy(white_border), text=text, org=(50,30),fontFace=2, fontScale=1, color=(0,0,0), thickness=2)
+    texted_image =cv2.putText(img=np.copy(white_border), text=text, org=(50,30),fontFace=2, fontScale=1, color=(0,0,0), thickness=1)
     return texted_image
 
 

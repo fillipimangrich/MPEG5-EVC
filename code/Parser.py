@@ -21,10 +21,10 @@ class ParserEvc():
             for line in range(len(lines)):
                 if line > 21 and line < (len(lines)-13) and line%2 == 0 and lines[line].split()[0].isnumeric(): 
                     original_tuple = lines[line].split()
-                    new_list = ([original_tuple[0]]+original_tuple[2:9])
+                    new_list = ([int(original_tuple[0])]+original_tuple[2:9])
                     parameters_lines.append((new_list))
 
-        return parameters_lines
+        return sorted(parameters_lines)
 
     def txt_to_csv(self,parameters):
         with open(f'CSVs/{self.__path}parameters_frames.csv', 'w', newline='') as csvfile:
