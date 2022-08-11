@@ -37,7 +37,7 @@ b_frames = get_frames('decoded_files/fast_carphone.y4m',[0,10,20,30,40,50,60])
 
 for i in range(len(a_frames)):
     a = add_border_and_text(a_frames[i],'Original')
-    b = add_border_and_text(a_frames[i],'Compressed')
+    b = add_border_and_text(b_frames[i],'Compressed')
     new = np.concatenate((a,b), axis=1)
     cv2.imwrite(f'carphone_qcif/{i}.png',new)
 
