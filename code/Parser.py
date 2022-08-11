@@ -1,10 +1,17 @@
 import csv
 import pandas as pd 
-from evc import EVC
 
 class ParserEvc():
 
     def __init__(self,path):
+        self.__path = path
+
+    @property
+    def path(self):
+        return self.__path
+
+    @path.setter
+    def path(self,path):
         self.__path = path
 
 
@@ -34,11 +41,7 @@ class ParserEvc():
         df = pd.read_csv(f'CSVs/{self.__path}parameters_frames.csv', header = None)
         df.to_csv(f'CSVs/{self.__path}parameters_frames.csv', header=['POC', 'Ftype', 'QP', 'PSNR-Y','PSNR-U','PSNR-V','Bits','EncT(ms)'],index=False)
         
-out = EVC('fast').encode('carphone_qcif.y4m','carphone.evc')
-n = ParserEvc(input('Digite o nome do arquivo:'))
-n.output_to_txt(out)
-a = n.get_parameters_from_txt()
-n.txt_to_csv(a)
+
 
 
 
