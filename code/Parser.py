@@ -1,6 +1,6 @@
 import csv
 import pandas as pd 
-from evc_Encoder import evc_Encoder
+from evc import EVC
 
 class ParserEvc():
 
@@ -34,7 +34,7 @@ class ParserEvc():
         df = pd.read_csv(f'CSVs/{self.__path}parameters_frames.csv', header = None)
         df.to_csv(f'CSVs/{self.__path}parameters_frames.csv', header=['POC', 'Ftype', 'QP', 'PSNR-Y','PSNR-U','PSNR-V','Bits','EncT(ms)'],index=False)
         
-out = evc_Encoder('fast').encode('carphone_qcif.y4m','carphone.evc')
+out = EVC('fast').encode('carphone_qcif.y4m','carphone.evc')
 n = ParserEvc(input('Digite o nome do arquivo:'))
 n.output_to_txt(out)
 a = n.get_parameters_from_txt()
